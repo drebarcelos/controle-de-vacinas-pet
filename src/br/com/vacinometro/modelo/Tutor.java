@@ -1,4 +1,4 @@
-package br.com.vacinometro.projeto;
+package br.com.vacinometro.modelo;
 
 import java.util.Objects;
 
@@ -45,6 +45,6 @@ public class Tutor {
 
 	@Override
 	public String toString() {
-		return "Nome: " + nome + ", cpf: " + cpf;
+		return "Nome: " + this.nome + ", cpf: " + this.cpf;
 	}
 }
