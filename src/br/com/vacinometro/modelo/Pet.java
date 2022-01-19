@@ -87,6 +87,7 @@ public class Pet {
 
 	@Override
 	public String toString() {
-		return "Nome: " + this.nome + ", raca: " + this.raca + ", idade: " + this.idade + ", peso: " + this.peso;
+		return "Especie: " + this.especie + "\nNome: " + this.nome + "\nRaca: " + this.raca + "\nIdade: " + this.idade + 
+				"\nPeso: " + this.peso + "\nTutor: " + this.tutor;
 	}
 }
