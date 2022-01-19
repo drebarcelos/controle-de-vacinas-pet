@@ -8,13 +8,15 @@ public class Pet {
 	private String raca;
 	private Integer idade;
 	private Double peso;
+	private Tutor tutor;
 	
-	public Pet(String especie, String nome, String raca, Integer idade, Double peso) {
+	public Pet(String especie, String nome, String raca, Integer idade, Double peso, Tutor tutor) {
 		this.especie = especie;
 		this.nome = nome;
 		this.raca = raca;
 		this.idade = idade;
 		this.peso = peso;
+		this.tutor = tutor;
 	}
 	
 	public String getEspecie() {
@@ -55,6 +57,14 @@ public class Pet {
 	
 	public void setPeso(Double peso) {
 		this.peso = peso;
+	}
+	
+	public Tutor getTutor() {
+		return tutor;
+	}
+	
+	public void setTutor(Tutor tutor) {
+		this.tutor = tutor;
 	}
 
 	@Override

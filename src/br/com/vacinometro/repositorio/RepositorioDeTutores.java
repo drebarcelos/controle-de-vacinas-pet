@@ -17,7 +17,7 @@ public class RepositorioDeTutores {
 		this.tutores.add(tutor);
 	}
 	
-	public List<Tutor> getTutores(){
+	public List<Tutor> getTodosTutores(){
 		return tutores;
 	}
 	
