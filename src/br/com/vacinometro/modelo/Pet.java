@@ -2,17 +2,27 @@ package br.com.vacinometro.modelo;
 
 import java.util.Objects;
 
-public class Animal {
+public class Pet {
+	private String especie;
 	private String nome;
 	private String raca;
 	private Integer idade;
 	private Double peso;
 	
-	public Animal(String nome, String raca, Integer idade, Double peso) {
+	public Pet(String especie, String nome, String raca, Integer idade, Double peso) {
+		this.especie = especie;
 		this.nome = nome;
 		this.raca = raca;
 		this.idade = idade;
 		this.peso = peso;
+	}
+	
+	public String getEspecie() {
+		return especie;
+	}
+	
+	public void setEspecie(String especie) {
+		this.especie = especie;
 	}
 	
 	public String getNome() {
@@ -60,7 +70,7 @@ public class Animal {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Animal other = (Animal) obj;
+		Pet other = (Pet) obj;
 		return Objects.equals(idade, other.idade) && Objects.equals(nome, other.nome)
 				&& Objects.equals(peso, other.peso) && Objects.equals(raca, other.raca);
 	}
