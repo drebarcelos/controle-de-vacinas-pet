@@ -12,14 +12,14 @@ public class Tutor {
 	}
 	
 	public String getNome() {
-		return this.nome;
+		return nome;
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 	
 	public String getCpf() {
-		return this.cpf;
+		return cpf;
 	}
 	
 	public void setCpf(String cpf) {
