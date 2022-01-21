@@ -1,14 +1,19 @@
 package br.com.vacinometro.modelo;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Pet {
+	public static final String FELINO = "Felino";
+	public static final String CANINO = "Canino";
 	private String especie;
 	private String nome;
 	private String raca;
 	private Integer idade;
 	private Double peso;
 	private Tutor tutor;
+	private List<Vacina> listaVacinas;
 	
 	public Pet(String especie, String nome, String raca, Integer idade, Double peso, Tutor tutor) {
 		this.especie = especie;
@@ -17,6 +22,17 @@ public class Pet {
 		this.idade = idade;
 		this.peso = peso;
 		this.tutor = tutor;
+		listaVacinas = new ArrayList<Vacina>();
+	}
+	
+	public Boolean isFelino() {
+		if(this.especie.equals(FELINO)) {
+			return true;
+		} return false;
+	}
+	
+	public Boolean isCanino() {
+		return !isFelino();
 	}
 	
 	public String getEspecie() {
@@ -65,6 +81,10 @@ public class Pet {
 	
 	public void setTutor(Tutor tutor) {
 		this.tutor = tutor;
+	}
+	
+	public List<Vacina> getListaVacinas() {
+		return listaVacinas;
 	}
 
 	@Override
