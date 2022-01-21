@@ -1,6 +1,7 @@
 package br.com.vacinometro.repositorio;
 
 import br.com.vacinometro.modelo.Pet;
+import br.com.vacinometro.modelo.Tutor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,5 +28,13 @@ public class RepositorioDePets {
 			}
 		}
 		throw new RuntimeException("Pet não encontrado!");
+	}
+	
+	public void imprimePetsCadastradosPeloTutor(Tutor tutor) {
+		for (Pet pet : pets) {
+			if(pet.getTutor().equals(tutor)) {
+				System.out.println(pet);
+			}
+		}
 	}
 }
