@@ -1,5 +1,6 @@
 package br.com.vacinometro;
 
+import java.util.List;
 import java.util.Scanner;
 
 import br.com.vacinometro.modelo.*;
@@ -39,6 +40,7 @@ public class Vacinometro {
 		System.out.println("Digite (2) para cadastrar um Pet");
 		System.out.println("Digite (3) para cadastrar uma vacina");
 		System.out.println("Digite (4) para buscar pets cadastrados pelo tutor");
+		System.out.println("Digite (5) para visualizar a carteira de vacinação do seu pet");
 	}
 	
 	private int pegaOpcaoDigitada() {
@@ -61,6 +63,9 @@ public class Vacinometro {
 				break;
 			case 4:
 				imprimePetsCadastradosPeloTutor();
+				break;
+			case 5:
+				imprimeCarteiraDeVacinacaoDoPet();
 				break;
 		}
 	}
@@ -160,5 +165,14 @@ public class Vacinometro {
 		Tutor tutorCadastrado = repositorioDeTutores.getTutorPeloNome(nomeTutor);
 		System.out.println("Pets cadastrados pelo tutor: ");
 		repositorioDePets.imprimePetsCadastradosPeloTutor(tutorCadastrado);
+	}
+	
+	private void imprimeCarteiraDeVacinacaoDoPet() {
+		System.out.println("Digite o nome do Pet: ");
+		String nomePet = SCANNER.nextLine();
+		
+		Pet petCadastrado = repositorioDePets.getPetPeloNome(nomePet);
+		System.out.println("Lista de vacinas cadastradas: ");
+		petCadastrado.getListaVacinas().forEach(System.out::println);
 	}
 }
