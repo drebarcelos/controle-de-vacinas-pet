@@ -86,8 +86,9 @@ public class Vacinometro {
 		String nomeTutor = capturaNomeDoTutor();	
 		Tutor tutorCadastrado = buscaTutorPeloNome(nomeTutor);
 		
-		System.out.println("Digite a especie do Pet: ");
-		String especie = SCANNER.nextLine();
+		Integer opcaoEspecie = capturaOpcaoDeEspecieDoPet();
+		SCANNER.nextLine();
+		String especie = Pet.retornaEspeciePet(opcaoEspecie);
 		
 		String nomePet = capturaNomeDoPet();
 		
@@ -174,6 +175,12 @@ public class Vacinometro {
 	private String capturaDataDaAplicacaoDaVacina() {
 		System.out.println("Digite a data da aplicação da vacina: ");
 		return SCANNER.nextLine();
+	}
+	
+	private Integer capturaOpcaoDeEspecieDoPet() {
+		System.out.println("Digite a especie do Pet entre as opções: ");
+		System.out.println("1- Felino \n2- Canino");
+		return SCANNER.nextInt();
 	}
 	
 	private Tutor buscaTutorPeloNome(String nomeTutor) {

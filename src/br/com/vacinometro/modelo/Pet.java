@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class Pet {
-	public static final String FELINO = "Felino";
-	public static final String CANINO = "Canino";
+	private static final int OPCAO_ESPECIE_FELINO = 1;
+	private static final int OPCAO_ESPECIE_CANINO = 2;
+	private static final String FELINO = "Felino";
+	private static final String CANINO = "Canino";
 	private String especie;
 	private String nome;
 	private String raca;
@@ -109,5 +111,15 @@ public class Pet {
 	public String toString() {
 		return "\nNome: " + this.nome + "\nEspecie: " + this.especie + "\nRaca: " + this.raca + "\nIdade: " + this.idade + 
 				"\nPeso: " + this.peso;
+	}
+	
+	public static String retornaEspeciePet(Integer opcaoEspecie) {
+		if(opcaoEspecie.equals(OPCAO_ESPECIE_FELINO)) {
+			return FELINO;
+		}
+		if(opcaoEspecie.equals(OPCAO_ESPECIE_CANINO)) {
+			return CANINO;
+		}
+		throw new RuntimeException("Especie não encontrada!");	
 	}
 }
