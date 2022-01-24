@@ -46,6 +46,6 @@ public class Vacina {
 	
 	@Override
 	public String toString() {
-		return "Nome: " + this.nome + "- Data da aplicaçao: " + this.data;
+		return "Nome: " + this.nome + " - Data da aplicaçao: " + this.data;
 	}
 }

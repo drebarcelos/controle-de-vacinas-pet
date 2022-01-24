@@ -107,7 +107,7 @@ public class Pet {
 
 	@Override
 	public String toString() {
-		return "\nNome: " + this.nome + "Especie: " + this.especie + "\nRaca: " + this.raca + "\nIdade: " + this.idade + 
+		return "\nNome: " + this.nome + "\nEspecie: " + this.especie + "\nRaca: " + this.raca + "\nIdade: " + this.idade + 
 				"\nPeso: " + this.peso;
 	}
 }

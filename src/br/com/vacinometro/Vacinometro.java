@@ -1,14 +1,9 @@
 package br.com.vacinometro;
 
-import java.util.List;
 import java.util.Scanner;
 
 import br.com.vacinometro.modelo.*;
-import br.com.vacinometro.repositorio.RepositorioDePets;
-import br.com.vacinometro.repositorio.RepositorioDeTutores;
-import br.com.vacinometro.repositorio.RepositorioDeVacinas;
-import br.com.vacinometro.repositorio.RepositorioDeVacinasCanino;
-import br.com.vacinometro.repositorio.RepositorioDeVacinasFelino;
+import br.com.vacinometro.repositorio.*;
 
 public class Vacinometro {
 	private static final int OPCAO_INICIAL = 1;
@@ -28,7 +23,7 @@ public class Vacinometro {
 		
 		while(opcao != OPCAO_FINAL) {
 			imprimeMenu();
-			opcao = pegaOpcaoDigitada();
+			opcao = capturaOpcaoDigitada();
 			SCANNER.nextLine();
 			executaOpcaoEscolhida(opcao);
 		}	
@@ -39,11 +34,11 @@ public class Vacinometro {
 		System.out.println("Digite (1) para cadastrar um Tutor");
 		System.out.println("Digite (2) para cadastrar um Pet");
 		System.out.println("Digite (3) para cadastrar uma vacina");
-		System.out.println("Digite (4) para buscar pets cadastrados pelo tutor");
+		System.out.println("Digite (4) para visualizar pets cadastrados pelo tutor");
 		System.out.println("Digite (5) para visualizar a carteira de vacinação do seu pet");
 	}
 	
-	private int pegaOpcaoDigitada() {
+	private int capturaOpcaoDigitada() {
 		return SCANNER.nextInt();
 	}
 	
@@ -62,10 +57,10 @@ public class Vacinometro {
 				cadastrarVacina();
 				break;
 			case 4:
-				imprimePetsCadastradosPeloTutor();
+				visualizarPetsCadastradosPeloTutor();
 				break;
 			case 5:
-				imprimeCarteiraDeVacinacaoDoPet();
+				visualizarCarteiraDeVacinacaoDoPet();
 				break;
 		}
 	}
@@ -76,8 +71,7 @@ public class Vacinometro {
 	}
 	
 	private void cadastrarTutor() {
-		System.out.println("Digite o nome do tutor: ");
-		String nome = SCANNER.nextLine();
+		String nome = capturaNomeDoTutor();
 		
 		System.out.println("Digite o cpf do tutor: ");
 		String cpf = SCANNER.nextLine();
@@ -89,16 +83,13 @@ public class Vacinometro {
 	}
 	
 	private void cadastrarPet() {
-		System.out.println("Digite o nome do Tutor: ");
-		String nomeTutor = SCANNER.nextLine();
-		
-		Tutor tutorCadastrado = repositorioDeTutores.getTutorPeloNome(nomeTutor);
+		String nomeTutor = capturaNomeDoTutor();	
+		Tutor tutorCadastrado = buscaTutorPeloNome(nomeTutor);
 		
 		System.out.println("Digite a especie do Pet: ");
 		String especie = SCANNER.nextLine();
 		
-		System.out.println("Digite o nome do Pet: ");
-		String nomePet = SCANNER.nextLine();
+		String nomePet = capturaNomeDoPet();
 		
 		System.out.println("Digite a raça do Pet: ");
 		String raca = SCANNER.nextLine();
@@ -116,22 +107,18 @@ public class Vacinometro {
 	}
 
 	private void cadastrarVacina() {
-		System.out.println("Digite o nome do Pet: ");
-		String nomePet = SCANNER.nextLine();
-		Pet petCadastrado = repositorioDePets.getPetPeloNome(nomePet);
+		String nomePet = capturaNomeDoPet();
+		Pet petCadastrado = buscaPetPeloNome(nomePet);
 		
 		if(petCadastrado.isFelino()) {
 			repositorioDeVacinas = new RepositorioDeVacinasFelino();
-			System.out.println("Vacinas disponiveis: ");
-			repositorioDeVacinas.getVacinas();
+			buscaEImprimeVacinasDisponiveis();
 			
-			System.out.println("Digite o numero da vacina que deseja cadastrar: ");
-			Integer numeroVacina = SCANNER.nextInt();
+			Integer numeroVacina = capturaNumeroVacina();
 			SCANNER.nextLine();
-			String vacinaSelecionada = repositorioDeVacinas.getVacinasPeloNumero(numeroVacina);
+			String vacinaSelecionada = buscaVacinaPeloNumero(numeroVacina);
 			
-			System.out.println("Digite a data da aplicação da vacina: ");
-			String dataVacina = SCANNER.nextLine();
+			String dataVacina = capturaDataDaAplicacaoDaVacina();
 			
 			Vacina vacina = new Vacina(vacinaSelecionada, dataVacina);
 			repositorioDeVacinas.adicionaVacina(petCadastrado, vacina);
@@ -140,16 +127,13 @@ public class Vacinometro {
 		}
 		if(petCadastrado.isCanino()) {
 			repositorioDeVacinas = new RepositorioDeVacinasCanino();
-			System.out.println("Vacinas disponiveis: ");
-			repositorioDeVacinas.getVacinas();
+			buscaEImprimeVacinasDisponiveis();
 			
-			System.out.println("Digite o numero da vacina que deseja cadastrar: ");
-			Integer numeroVacina = SCANNER.nextInt();
+			Integer numeroVacina = capturaNumeroVacina();
 			SCANNER.nextLine();
-			String vacinaSelecionada = repositorioDeVacinas.getVacinasPeloNumero(numeroVacina);
+			String vacinaSelecionada = buscaVacinaPeloNumero(numeroVacina);
 			
-			System.out.println("Digite a data da aplicação da vacina: ");
-			String dataVacina = SCANNER.nextLine();
+			String dataVacina = capturaDataDaAplicacaoDaVacina();
 			
 			Vacina vacina = new Vacina(vacinaSelecionada, dataVacina);
 			repositorioDeVacinas.adicionaVacina(petCadastrado, vacina);
@@ -158,20 +142,63 @@ public class Vacinometro {
 		}
 	}
 	
-	private void imprimePetsCadastradosPeloTutor() {
-		System.out.println("Digite o nome do Tutor: ");
-		String nomeTutor = SCANNER.nextLine();
+	private void visualizarPetsCadastradosPeloTutor() {
+		String nomeTutor = capturaNomeDoTutor();
+		Tutor tutorCadastrado = buscaTutorPeloNome(nomeTutor);
 		
-		Tutor tutorCadastrado = repositorioDeTutores.getTutorPeloNome(nomeTutor);
+		buscaEImprimePetsCadastradosPeloTutor(tutorCadastrado);
+	}
+	
+	private void visualizarCarteiraDeVacinacaoDoPet() {
+		String nomePet = capturaNomeDoPet();		
+		Pet petCadastrado = buscaPetPeloNome(nomePet);
+		
+		buscaEImprimeVacinasCadastradas(petCadastrado);
+	}
+	
+	private String capturaNomeDoTutor() {
+		System.out.println("Digite o nome do tutor: ");
+		return SCANNER.nextLine();
+	}
+	
+	private String capturaNomeDoPet() {
+		System.out.println("Digite o nome do Pet: ");
+		return SCANNER.nextLine();
+	}
+	
+	private Integer capturaNumeroVacina() {
+		System.out.println("Digite o numero da vacina que deseja cadastrar: ");
+		return SCANNER.nextInt();
+	}
+	
+	private String capturaDataDaAplicacaoDaVacina() {
+		System.out.println("Digite a data da aplicação da vacina: ");
+		return SCANNER.nextLine();
+	}
+	
+	private Tutor buscaTutorPeloNome(String nomeTutor) {
+		return repositorioDeTutores.getTutorPeloNome(nomeTutor);
+	}
+	
+	private Pet buscaPetPeloNome(String nomePet) {
+		return repositorioDePets.getPetPeloNome(nomePet);
+	}
+	
+	private String buscaVacinaPeloNumero(Integer numeroVacina) {
+		return repositorioDeVacinas.getVacinasPeloNumero(numeroVacina);
+	}
+	
+	private void buscaEImprimeVacinasDisponiveis() {
+		System.out.println("Vacinas disponiveis: ");
+		repositorioDeVacinas.getVacinas();
+	}
+	
+	private void buscaEImprimePetsCadastradosPeloTutor(Tutor tutorCadastrado) {
 		System.out.println("Pets cadastrados pelo tutor: ");
 		repositorioDePets.imprimePetsCadastradosPeloTutor(tutorCadastrado);
 	}
 	
-	private void imprimeCarteiraDeVacinacaoDoPet() {
-		System.out.println("Digite o nome do Pet: ");
-		String nomePet = SCANNER.nextLine();
-		
-		Pet petCadastrado = repositorioDePets.getPetPeloNome(nomePet);
+	private void buscaEImprimeVacinasCadastradas(Pet petCadastrado) {
 		System.out.println("Lista de vacinas cadastradas: ");
 		petCadastrado.getListaVacinas().forEach(System.out::println);
 	}
