@@ -115,31 +115,13 @@ public class Vacinometro {
 			repositorioDeVacinas = new RepositorioDeVacinasFelino();
 			buscaEImprimeVacinasDisponiveis();
 			
-			Integer numeroVacina = capturaNumeroVacina();
-			SCANNER.nextLine();
-			String vacinaSelecionada = buscaVacinaPeloNumero(numeroVacina);
-			
-			String dataVacina = capturaDataDaAplicacaoDaVacina();
-			
-			Vacina vacina = new Vacina(vacinaSelecionada, dataVacina);
-			repositorioDeVacinas.adicionaVacina(petCadastrado, vacina);
-			
-			System.out.println(vacina.getNome() + " cadastrada com sucesso!");
+			selecionaVacina(petCadastrado);
 		}
 		if(petCadastrado.isCanino()) {
 			repositorioDeVacinas = new RepositorioDeVacinasCanino();
 			buscaEImprimeVacinasDisponiveis();
 			
-			Integer numeroVacina = capturaNumeroVacina();
-			SCANNER.nextLine();
-			String vacinaSelecionada = buscaVacinaPeloNumero(numeroVacina);
-			
-			String dataVacina = capturaDataDaAplicacaoDaVacina();
-			
-			Vacina vacina = new Vacina(vacinaSelecionada, dataVacina);
-			repositorioDeVacinas.adicionaVacina(petCadastrado, vacina);
-			
-			System.out.println(vacina.getNome() + " cadastrada com sucesso!");
+			selecionaVacina(petCadastrado);
 		}
 	}
 	
@@ -208,5 +190,18 @@ public class Vacinometro {
 	private void buscaEImprimeVacinasCadastradas(Pet petCadastrado) {
 		System.out.println("Lista de vacinas cadastradas: ");
 		petCadastrado.getListaVacinas().forEach(System.out::println);
+	}
+	
+	private void selecionaVacina(Pet petCadastrado) {
+		Integer numeroVacina = capturaNumeroVacina();
+		SCANNER.nextLine();
+		String vacinaSelecionada = buscaVacinaPeloNumero(numeroVacina);
+		
+		String dataVacina = capturaDataDaAplicacaoDaVacina();
+		
+		Vacina vacina = new Vacina(vacinaSelecionada, dataVacina);
+		repositorioDeVacinas.adicionaVacina(petCadastrado, vacina);
+		
+		System.out.println(vacina.getNome() + " cadastrada com sucesso!");
 	}
 }
