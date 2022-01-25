@@ -39,9 +39,9 @@ public class RepositorioDeVacinasCanino implements RepositorioDeVacinas {
 	        br.close();
 	        isr.close();
 	        fis.close();
-			} catch(IOException e) {
-				throw new RuntimeException("Erro ao listar todas as vacinas!", e);
-			}		
+		} catch(IOException e) {
+			throw new RuntimeException("Erro ao listar todas as vacinas!", e);
+		}		
 	}
 
 	@Override
@@ -68,9 +68,9 @@ public class RepositorioDeVacinasCanino implements RepositorioDeVacinas {
 	        br.close();
 	        isr.close();
 	        fis.close();
-			} catch(IOException e) {
+		} catch(IOException e) {
 			throw new RuntimeException("Erro ao listar todas as vacinas!", e);
-			}
+		}
 		throw new RuntimeException("Vacina não encontrada!");
 	}
 }

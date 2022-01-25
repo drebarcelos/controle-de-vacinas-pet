@@ -43,25 +43,33 @@ public class Vacinometro {
 	}
 	
 	private void executaOpcaoEscolhida(int opcao) {
-		switch(opcao) {
-			case 0:
-				sair();
-				break;
-			case 1:
-				cadastrarTutor();
-				break;
-			case 2:
-				cadastrarPet();
-				break;
-			case 3:
-				cadastrarVacina();
-				break;
-			case 4:
-				visualizarPetsCadastradosPeloTutor();
-				break;
-			case 5:
-				visualizarCarteiraDeVacinacaoDoPet();
-				break;
+		try {
+			switch(opcao) {
+				case 0:
+					sair();
+					break;
+				case 1:
+					cadastrarTutor();
+					break;
+				case 2:
+					cadastrarPet();
+					break;
+				case 3:
+					cadastrarVacina();
+					break;
+				case 4:
+					visualizarPetsCadastradosPeloTutor();
+					break;
+				case 5:
+					visualizarCarteiraDeVacinacaoDoPet();
+					break;
+				default:
+					opcaoInvalida();
+					break;
+			}
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+			return;
 		}
 	}
 	
@@ -137,6 +145,10 @@ public class Vacinometro {
 		Pet petCadastrado = buscaPetPeloNome(nomePet);
 		
 		buscaEImprimeVacinasCadastradas(petCadastrado);
+	}
+	
+	private void opcaoInvalida() {
+		System.out.println("Opção inválida! Digite novamente");
 	}
 	
 	private String capturaNomeDoTutor() {
