@@ -80,13 +80,10 @@ public class Vacinometro {
 	
 	private void cadastrarTutor() {
 		String nome = capturaNomeDoTutor();
+		String cpf = capturaCpfDoTutor();
 		
-		System.out.println("Digite o cpf do tutor: ");
-		String cpf = SCANNER.nextLine();
-		
-		Tutor tutor = new Tutor(nome, cpf);
+		Tutor tutor = criaNovoTutor(nome, cpf);
 		repositorioDeTutores.cadastarTutor(tutor);
-		
 		System.out.println("Tutor " + tutor.getNome() + " cadastrado com sucesso!");
 	}
 	
@@ -99,19 +96,12 @@ public class Vacinometro {
 		String especie = Pet.retornaEspeciePet(opcaoEspecie);
 		
 		String nomePet = capturaNomeDoPet();
+		String raca = capturaRacaDoPet();
+		Integer idade = capturaIdadeDoPet();
+		Double peso = capturaPesoDoPet();
+		Pet pet = criaNovoPet(especie, nomePet, raca, idade, peso, tutorCadastrado);
 		
-		System.out.println("Digite a raça do Pet: ");
-		String raca = SCANNER.nextLine();
-		
-		System.out.println("Digite a idade do Pet: ");
-		Integer idade = SCANNER.nextInt();
-		
-		System.out.println("Digite o peso do Pet: ");
-		Double peso = SCANNER.nextDouble();
-		
-		Pet pet = new Pet(especie, nomePet, raca, idade, peso, tutorCadastrado);
 		repositorioDePets.cadastrarPet(pet);
-		
 		System.out.println("Pet " + pet.getNome() + " cadastrado com sucesso!");		
 	}
 
@@ -156,9 +146,29 @@ public class Vacinometro {
 		return SCANNER.nextLine();
 	}
 	
+	private String capturaCpfDoTutor() {
+		System.out.println("Digite o cpf do tutor: ");
+		return SCANNER.nextLine();
+	}
+	
 	private String capturaNomeDoPet() {
 		System.out.println("Digite o nome do Pet: ");
 		return SCANNER.nextLine();
+	}
+	
+	private String capturaRacaDoPet() {
+		System.out.println("Digite a raça do Pet: ");
+		return SCANNER.nextLine();
+	}
+	
+	private Integer capturaIdadeDoPet() {
+		System.out.println("Digite a idade do Pet: ");
+		return SCANNER.nextInt();
+	}
+	
+	private Double capturaPesoDoPet() {
+		System.out.println("Digite o peso do Pet: ");
+		return SCANNER.nextDouble();
 	}
 	
 	private Integer capturaNumeroVacina() {
@@ -175,6 +185,16 @@ public class Vacinometro {
 		System.out.println("Digite a especie do Pet entre as opções: ");
 		System.out.println("1- Felino \n2- Canino");
 		return SCANNER.nextInt();
+	}
+	
+	private Tutor criaNovoTutor(String nome, String cpf) {
+		Tutor tutor = new Tutor(nome, cpf);
+		return tutor;
+	}
+	
+	private Pet criaNovoPet(String especie, String nomePet, String raca, Integer idade, Double peso, Tutor tutorCadastrado) {
+		Pet pet = new Pet(especie, nomePet, raca, idade, peso, tutorCadastrado);
+		return pet;
 	}
 	
 	private Tutor buscaTutorPeloNome(String nomeTutor) {
